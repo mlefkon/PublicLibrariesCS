@@ -4,24 +4,24 @@
 using System;
 
 namespace UtilityLib {
-    public enum DateTimePart {Millisecond, Second, Minute, Hour, Day, Week, Month, Year};
-    public struct DateTimePartAmount {
-        public DateTimePart Part;
+    public enum TimeSpanPart {Milliseconds, Seconds, Minutes, Hours, Days, Weeks, Months, Years};
+    public struct TimeSpanPartAmount {
+        public TimeSpanPart Part;
         public int Amount;
-        public DateTimePartAmount(DateTimePart Part, int Amount) { this.Part = Part; this.Amount = Amount; }
+        public TimeSpanPartAmount(TimeSpanPart Part, int Amount) { this.Part = Part; this.Amount = Amount; }
     }
     public static partial class TimeSpanExtensions {
-        public static DateTimePartAmount Largest(this TimeSpan Span) {
-            return Span.Days    > 365 ? new DateTimePartAmount(DateTimePart.Year,   (int)(Span.Days/365)) :
-                   Span.Days    > 30  ? new DateTimePartAmount(DateTimePart.Month,  (int)(Span.Days/30 )) :
-                   Span.Days    > 7   ? new DateTimePartAmount(DateTimePart.Week,   (int)(Span.Days/7  )) :
-                   Span.Days    > 1   ? new DateTimePartAmount(DateTimePart.Day,    Span.Days) :
-                   Span.Hours   > 1   ? new DateTimePartAmount(DateTimePart.Hour,   Span.Hours) : 
-                   Span.Minutes > 1   ? new DateTimePartAmount(DateTimePart.Minute, Span.Minutes) : 
-                                        new DateTimePartAmount(DateTimePart.Second, Span.Seconds) ;
+        public static TimeSpanPartAmount Largest(this TimeSpan Span) {
+            return Span.Days    > 365 ? new TimeSpanPartAmount(TimeSpanPart.Years,   (int)(Span.Days/365)) :
+                   Span.Days    > 30  ? new TimeSpanPartAmount(TimeSpanPart.Months,  (int)(Span.Days/30 )) :
+                   Span.Days    > 7   ? new TimeSpanPartAmount(TimeSpanPart.Weeks,   (int)(Span.Days/7  )) :
+                   Span.Days    > 1   ? new TimeSpanPartAmount(TimeSpanPart.Days,    Span.Days) :
+                   Span.Hours   > 1   ? new TimeSpanPartAmount(TimeSpanPart.Hours,   Span.Hours) : 
+                   Span.Minutes > 1   ? new TimeSpanPartAmount(TimeSpanPart.Minutes, Span.Minutes) : 
+                                        new TimeSpanPartAmount(TimeSpanPart.Seconds, Span.Seconds) ;
         }
         public static String ToStringLargest(this TimeSpan Span) {
-            DateTimePartAmount largest = Span.Largest();
+            TimeSpanPartAmount largest = Span.Largest();
             return largest.Amount + " " + largest.Part.ToString().ToLower() + (largest.Amount > 1 ? "s" : "");
         }
     }
