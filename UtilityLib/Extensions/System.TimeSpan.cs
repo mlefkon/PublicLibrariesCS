@@ -1,5 +1,9 @@
-﻿
-namespace System {
+﻿// Copyright (c) 2014 Marc Lefkon (http://www.leftek.com)
+// All rights reserved (https://github.com/mlefkon/PublicLibrariesCS/blob/master/UtilityLib/)
+// Licensed under MIT License (MIT) (https://github.com/mlefkon/PublicLibrariesCS/blob/master/UtilityLib/license.txt).
+using System;
+
+namespace UtilityLib {
     public enum DateTimePart {Millisecond, Second, Minute, Hour, Day, Week, Month, Year};
     public struct DateTimePartAmount {
         public DateTimePart Part;

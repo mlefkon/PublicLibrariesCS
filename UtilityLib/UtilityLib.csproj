@@ -30,17 +30,56 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="System.TimeSpan.cs" />
+    <Compile Include="Classes\EventHandlers.cs" />
+    <Compile Include="Classes\SqlMigration.cs" />
+    <Compile Include="Collections\Generic.EquatableHashSet.cs" />
+    <Compile Include="StaticHelperClasses\IconHelper.cs" />
+    <Compile Include="WPF\Controls.MultiListBox.cs" />
+    <Compile Include="WPF\Data.Converters.cs" />
+    <Compile Include="WPF\TooltipHelper.cs" />
+    <Compile Include="WPF\Input.WaitCursor.cs" />
+    <Compile Include="WPF\Input.RelayCommand.cs" />
+    <Compile Include="Extensions\System.Byte.array.cs" />
+    <Compile Include="Extensions\System.Collections.Concurrent.ConcurrentBag.cs" />
+    <Compile Include="Extensions\System.Collections.Generic.IEnumerable.cs" />
+    <Compile Include="Extensions\System.Data.IDbCommand.cs" />
+    <Compile Include="Extensions\System.Data.IDbConnection.cs" />
+    <Compile Include="Extensions\System.DateTime.cs" />
+    <Compile Include="Extensions\System.DateTime.UnixEpoch.cs" />
+    <Compile Include="Extensions\System.Exception.cs" />
+    <Compile Include="Extensions\System.Object.cs" />
+    <Compile Include="Extensions\System.Reflection.Assembly.cs" />
+    <Compile Include="Extensions\System.String.Crypto.cs" />
+    <Compile Include="Extensions\System.String.cs" />
+    <Compile Include="Extensions\System.Threading.Tasks.Task.cs" />
+    <Compile Include="Extensions\System.TimeSpan.cs" />
+    <Compile Include="Extensions\System.Type.cs" />
+    <Compile Include="Extensions\System.Windows.Application.cs" />
+    <Compile Include="Classes\JobLimiter.cs" />
+    <Compile Include="Classes\LogFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Classes\SettingsFile.cs" />
+    <Compile Include="Extensions\System.Diagnostics.Process.cs" />
+    <Compile Include="Classes\SingletonApplicationEnforcer.cs" />
+    <Compile Include="Collections\Generic.EquatableList.cs" />
+    <Compile Include="StaticHelperClasses\TypeHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
