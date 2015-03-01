@@ -63,7 +63,7 @@
     <Compile Include="Extensions\System.Exception.cs" />
     <Compile Include="Extensions\System.Object.cs" />
     <Compile Include="Extensions\System.Reflection.Assembly.cs" />
-    <Compile Include="Extensions\System.String.crypto_hash.cs" />
+    <Compile Include="Extensions\System.String.hash.cs" />
     <Compile Include="Extensions\System.String.cs" />
     <Compile Include="Extensions\System.Threading.Tasks.Task.cs" />
     <Compile Include="Extensions\System.TimeSpan.cs" />
