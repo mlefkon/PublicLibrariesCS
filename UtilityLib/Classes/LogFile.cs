@@ -33,10 +33,10 @@ namespace UtilityLib {
             File.WriteAllLines(_filePathName, lines.Where( (s,i) => i>=startLine ));
             File.AppendAllLines(_filePathName, new string[] {DateTime.Now.ToString() + " - LOG TRIMMED (by "+TrimPercent+"%)"});
         }
-        public void Info(string Text) {
+        public void LogInfo(string Text) {
             WriteToFile(DateTime.Now.ToString() + " - INFO: " + MultilinePrepend(Text, "    ", false) );
         }
-        public void Error(Exception Ex) {
+        public void LogError(Exception Ex) {
             string text = 
                 DateTime.Now.ToString() + " - ERROR: " + Environment.NewLine +
                 "    Source: " + Ex.Source + Environment.NewLine +
