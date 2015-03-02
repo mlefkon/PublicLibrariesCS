@@ -6,14 +6,35 @@ using System.IO;
 using System.Linq;
 
 namespace UtilityLib {
+    /// <summary>
+    ///     Simple logging to file instantiatable class.
+    ///     Separate logging for Info and Errors.
+    /// </summary>
     public class LogFile {
         private string _filePathName;
+        public LogFile(string CompanyName, string AppName, string FileName) : this(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + CompanyName + "\\" + AppName + "\\" + FileName) {}
+        public LogFile(string AppName, string FileName)                     : this(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\"                      + AppName + "\\" + FileName) {}
         public LogFile(string FilePathName) {
             _filePathName = FilePathName;
+        }
+        public void LogInfo(string Text) {
+            WriteToFile(DateTime.Now.ToString() + " - INFO: " + MultilinePrepend(Text, "    ", false) );
         }
         public int MaxFileSizeKB { set { _maxBytes = 1024 *        value; } }
         public int MaxFileSizeMB { set { _maxBytes = 1024 * 1024 * value; } }
             private Int64 _maxBytes = 0;
+        public void LogError(Exception Ex) {
+            string text = 
+                DateTime.Now.ToString() + " - ERROR: " + Environment.NewLine +
+                "    Source: " + Ex.Source + Environment.NewLine +
+                "    Message: " + Environment.NewLine + MultilinePrepend(Ex.MessageFull(Environment.NewLine), "        - ") + Environment.NewLine +
+                "    TargetSite: " + Ex.TargetSite + Environment.NewLine +
+                "    StackTrace: " + Environment.NewLine + MultilinePrepend(Ex.StackTrace, "        - ")
+                ;
+                //Ex.Data ?
+            WriteToFile(text);
+        }
+        //==PRIVATE===========================================================================================
         private void WriteToFile(string Text) {
             FileInfo fi = new FileInfo(_filePathName);
             lock (this) {
@@ -32,20 +53,6 @@ namespace UtilityLib {
             int startLine = Convert.ToInt32( lines.Length * TrimPercent/100 );
             File.WriteAllLines(_filePathName, lines.Where( (s,i) => i>=startLine ));
             File.AppendAllLines(_filePathName, new string[] {DateTime.Now.ToString() + " - LOG TRIMMED (by "+TrimPercent+"%)"});
-        }
-        public void LogInfo(string Text) {
-            WriteToFile(DateTime.Now.ToString() + " - INFO: " + MultilinePrepend(Text, "    ", false) );
-        }
-        public void LogError(Exception Ex) {
-            string text = 
-                DateTime.Now.ToString() + " - ERROR: " + Environment.NewLine +
-                "    Source: " + Ex.Source + Environment.NewLine +
-                "    Message: " + Environment.NewLine + MultilinePrepend(Ex.MessageFull(Environment.NewLine), "        - ") + Environment.NewLine +
-                "    TargetSite: " + Ex.TargetSite + Environment.NewLine +
-                "    StackTrace: " + Environment.NewLine + MultilinePrepend(Ex.StackTrace, "        - ")
-                ;
-                //Ex.Data ?
-            WriteToFile(text);
         }
 	    private string MultilinePrepend(string Text, string PrependText, bool IncludeFirstLine = true) {
 		    return String.Join(Environment.NewLine, Text.Split(new char[] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries)
