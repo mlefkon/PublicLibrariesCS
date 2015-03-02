@@ -35,8 +35,8 @@ namespace UtilityLib {
         private int _limit;
 
         /// <summary>
-        ///     Dynamically set maximum number of jobs allowed.  If lowered, jobs are not canceled and 
-        ///     allowed to finish, but while Count is above the limit, no new job will be started.
+        ///     Dynamically set maximum number of jobs allowed.  If lowered, jobs are not canceled but 
+        ///     allowed to finish. While Count is above the new limit, no new jobs will be started.
         /// </summary>
         public int Limit { 
             get { lock (_sync) return _limit; } 
@@ -89,12 +89,14 @@ namespace UtilityLib {
 
         /// <summary>
         ///     Called at end of job to let next in queue proceed.  One JobDone() must be called 
-        ///     for each JobStart(), so ideally put in finally{} clause of a try-finally block.
+        ///     for each corresponding JobStart(), so ideally put in finally{} clause of a try-finally block.
         /// </summary>
+        /// <exception cref="Exception">Deducting this job makes the Count negative. This means JobDone() has been called more times than JobStart().</exception>
         public void JobDone() {
             TaskCompletionSource<bool> next = null;
             lock (_sync) {
-                _count = (_count == 0) ? 0 : _count - 1; // on the odd chance that JobDone may be called twice by some threads, error check here.
+                _count = _count - 1;
+                if (_count < 0) throw new Exception("JobDone() has been called more times than JobStart().  The Count is negative.");
                 if (CurrentProcessing < Limit && _waiters.Count > 0) next = _waiters.Dequeue();
             }
             RaiseCountChanged();
