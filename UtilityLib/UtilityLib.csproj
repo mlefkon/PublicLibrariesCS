@@ -47,7 +47,7 @@
     <Compile Include="Classes\EventHandlers.cs" />
     <Compile Include="Classes\SqlMigration.cs" />
     <Compile Include="Collections\Generic.EquatableHashSet.cs" />
-    <Compile Include="StaticHelperClasses\IconHelper.cs" />
+    <Compile Include="StaticHelperClasses\DrawingHelper.cs" />
     <Compile Include="WPF\Controls.MultiListBox.cs" />
     <Compile Include="WPF\Data.Converters.cs" />
     <Compile Include="WPF\TooltipHelper.cs" />
